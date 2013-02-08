@@ -1,0 +1,3 @@
+[submodule "coffeeserver"]
+	path = coffeeserver
+	url = git@github.com:fsi-hska/coffeeserver.git
