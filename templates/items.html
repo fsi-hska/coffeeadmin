@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% set active_page = "/items" %}
+
+{% block body_content %}
+{{ super() }}
+    <div class="container">
+      <div class="hero-unit">
+        <h3>Items</h3>
+
+		{% for item in items %}
+			<li>{{ item.id }}. {{ item.desc }} {{ item.price|safe }} Bits Enabled: {{ item.enabled }}  Sold out: {{ item.sold_out }}</li>
+		{% else %}
+			<li><em>Keine Items</em></li>
+		{% endfor %}
+
+      </div>
+    </div>
+{% endblock %}

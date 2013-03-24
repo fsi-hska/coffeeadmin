@@ -15,13 +15,20 @@ p = coffeeserver.load_payment()
 
 @app.route('/')
 def index():
-    p.getItems()
-    return render_template('test.html')
+    return render_template('home.html')
 
+@app.route('/items/')
+def items():
+    print p.getItems()
+    return render_template('items.html', items=p.getItems())
 
-@app.route('/breakme/')
-def breakme():
-    return render_template('test.html')
+@app.route('/transactions/')
+def transactions():
+    return render_template('placeholder.html')
+
+@app.route('/contact/')
+def contact():
+    return render_template('placeholder.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
