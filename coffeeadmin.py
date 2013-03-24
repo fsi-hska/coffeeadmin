@@ -9,6 +9,7 @@ import coffeeserver
 app = Flask(__name__)
 Bootstrap(app)
 app.config['BOOTSTRAP_USE_CDN'] = True
+app.config['BOOTSTRAP_FONTAWESOME'] = True
 
 p = coffeeserver.load_payment()
 
