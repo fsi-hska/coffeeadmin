@@ -1,12 +1,16 @@
 {% extends "bootstrap_responsive.html" %}
 
-{% set navigation_bar = [
-    ('/', 'index', 'Home'),
-    ('/items/', 'items', 'Downloads'),
-    ('/transactions/', 'transactions', 'About')
-] -%}
 
-{% set active_page = active_page|default('index') %}
+{% set logged_in = logged_in|default(true) %}
+{% set is_admin = is_admin|default(false) %}
+
+{% set navigation_bar = [
+    ('/', 'home', 'Home', false, false),
+    ('/items', 'items', 'Items', true, false),
+    ('/transactions', 'transactions', 'Transactions', true, true)
+] -%}
+{% set active_page = active_page|default('home') %}
+
 {% macro nav_link(endpoint, name) %}
     {% if endpoint == active_page %}
         <li class="active"><a href="{{ endpoint }}">{{ name }}</a></li>
@@ -27,16 +31,25 @@
           <a class="brand" href="/">Coffeeweb!</a>
           <div class="nav-collapse">
             <ul class="nav">
-              {{ nav_link('/', 'Home') }}
-              {{ nav_link('/items', 'items') }}
-              {{ nav_link('/transactions', 'transactions') }}
-              {{ nav_link('/contact', 'Über / Kontakt') }}              
+              {% for link, id, caption, needs_user, needs_admin in navigation_bar %}
+                {% if (not needs_user and not needs_admin) or ((needs_user and logged_in) and not needs_admin) or (needs_admin and is_admin) %}
+                  {{ nav_link(link, caption) }}
+                {% endif %}
+              {% endfor %}
             </ul>
+            {% if not logged_in %}
             <form class="navbar-form pull-right" action="/login" method="post">
               <input name="username" class="span2" type="text" placeholder="Benutzername">
               <input name="password" class="span2" type="password" placeholder="Passwort">
               <button type="submit" class="btn">Sign in</button>
             </form>
+            {% else %}
+            <p class="navbar-text pull-right">
+              Logged in as <a href="#" class="navbar-link">Username</a> - 20 Bits
+            </p>
+            test
+            </div>
+            {% endif %}
           </div><!--/.nav-collapse -->
         </div>
       </div>

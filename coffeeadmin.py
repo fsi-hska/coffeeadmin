@@ -8,6 +8,7 @@ sys.path.insert(0, "coffeeserver/")
 import coffeeserver
 
 app = Flask(__name__)
+app.secret_key = ':D'
 
 # Bootstrap
 Bootstrap(app)
@@ -16,7 +17,6 @@ app.config['BOOTSTRAP_FONTAWESOME'] = True
 
 # Payment
 payment = coffeeserver.load_payment()
-
 
 # Login manager
 login_manager = LoginManager()

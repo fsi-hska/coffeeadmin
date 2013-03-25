@@ -7,14 +7,28 @@
       <div class="hero-unit">
         <h3>Items</h3>
 
+        <div class="row-fluid">
 		{% for item in items %}
-			<div>
-                <img style="height: 70px;" src="/items/image/{{item.id}}"/>
-            {{ item.id }}. {{ item.desc }} {{ item.price|safe }} Bits Enabled: {{ item.enabled }}  Sold out: {{ item.sold_out }}
+
+            {% if loop.index0 is divisibleby(3) %}
             </div>
-		{% else %}
-			<em>Keine Items</em>
+            <div class="row-fluid">
+            {% endif %}
+
+			<div class="span4">
+                <div style="display: inline-block; width: 70px; height: 70px; text-align: center;">
+                    <img style="max-height: 100%;" src="/items/image/{{item.id}}"/>
+                </div>
+
+                <div style="display: inline-block;">
+                    {{ item.desc|safe }} - {{ item.price }} Bits</br>
+                    <a class="btn btn-primary">Kaufen! &raquo;</a>
+                </div>
+                {# {{ item.id }}. {{ item.desc|safe }} {{ item.price }} Bits Enabled: {{ item.enabled }}  Sold out: {{ item.sold_out }} #}
+            </div>
+
 		{% endfor %}
+        </div>
 
       </div>
     </div>
