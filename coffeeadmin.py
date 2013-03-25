@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys
-from flask import Flask, render_template
+from flask import *
 from flask.ext.bootstrap import Bootstrap
 sys.path.insert(0, "coffeeserver/")
 import coffeeserver
 
 app = Flask(__name__)
 Bootstrap(app)
-app.config['BOOTSTRAP_USE_CDN'] = True
+app.config['BOOTSTRAP_USE_CDN'] = False
 app.config['BOOTSTRAP_FONTAWESOME'] = True
 
 p = coffeeserver.load_payment()
@@ -19,8 +19,15 @@ def index():
 
 @app.route('/items/')
 def items():
-    print p.getItems()
     return render_template('items.html', items=p.getItems())
+
+@app.route('/items/image/<int:item_id>')
+def item_image(item_id):
+    item = p.getItemById(item_id)
+    if item is None:
+        abort(404)
+    else:
+        return send_file('coffeeserver/resource/items/' + item.image, mimetype='image/png')
 
 @app.route('/transactions/')
 def transactions():

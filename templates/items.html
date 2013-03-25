@@ -8,9 +8,12 @@
         <h3>Items</h3>
 
 		{% for item in items %}
-			<li>{{ item.id }}. {{ item.desc }} {{ item.price|safe }} Bits Enabled: {{ item.enabled }}  Sold out: {{ item.sold_out }}</li>
+			<div>
+                <img src="/items/image/{{item.id}}"/>
+            {{ item.id }}. {{ item.desc }} {{ item.price|safe }} Bits Enabled: {{ item.enabled }}  Sold out: {{ item.sold_out }}
+            </div>
 		{% else %}
-			<li><em>Keine Items</em></li>
+			<em>Keine Items</em>
 		{% endfor %}
 
       </div>
