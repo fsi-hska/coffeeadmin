@@ -1,5 +1,11 @@
 {% extends "bootstrap_responsive.html" %}
 
+{% set navigation_bar = [
+    ('/', 'index', 'Home'),
+    ('/items/', 'items', 'Downloads'),
+    ('/transactions/', 'transactions', 'About')
+] -%}
+
 {% set active_page = active_page|default('index') %}
 {% macro nav_link(endpoint, name) %}
     {% if endpoint == active_page %}
@@ -26,9 +32,9 @@
               {{ nav_link('/transactions', 'transactions') }}
               {{ nav_link('/contact', 'Über / Kontakt') }}              
             </ul>
-            <form class="navbar-form pull-right">
-              <input class="span2" type="text" placeholder="Benutzername">
-              <input class="span2" type="password" placeholder="Passwort">
+            <form class="navbar-form pull-right" action="/login" method="post">
+              <input name="username" class="span2" type="text" placeholder="Benutzername">
+              <input name="password" class="span2" type="password" placeholder="Passwort">
               <button type="submit" class="btn">Sign in</button>
             </form>
           </div><!--/.nav-collapse -->

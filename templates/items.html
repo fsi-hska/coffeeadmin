@@ -9,7 +9,7 @@
 
 		{% for item in items %}
 			<div>
-                <img src="/items/image/{{item.id}}"/>
+                <img style="height: 70px;" src="/items/image/{{item.id}}"/>
             {{ item.id }}. {{ item.desc }} {{ item.price|safe }} Bits Enabled: {{ item.enabled }}  Sold out: {{ item.sold_out }}
             </div>
 		{% else %}
