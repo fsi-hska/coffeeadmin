@@ -24,5 +24,15 @@ class AnonymousUser(User):
     def __init__(self):
         User.__init__(self, '', False, False, False)
 
+def paymentUserToWebUser(payment_user):
+    if payment_user is None:
+        return None
+    return User(payment_user.id, True, True, True)
+
 def get(payment, id):
-    pass
+    payment_user = payment.getUserById(int(id))
+    return paymentUserToWebUser(payment_user)
+
+def validate(payment, username, password):
+    payment_user = payment.getUserWithLogin(username, password)
+    return paymentUserToWebUser(payment_user)

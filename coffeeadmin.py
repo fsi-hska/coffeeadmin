@@ -62,11 +62,12 @@ def transactions():
 def login():
     username = request.form['username']
     password = request.form['password']
-    if username == 'foo' and password == 'bar':
-        u = user.User('foo', True, True, True)
-        login_user(u)
-        flash("Logged in successfully.")
-    return render('placeholder.html')
+
+    web_user = user.validate(payment, username, password)
+    if web_user is not None:
+        login_user(web_user)
+        render('placeholder.html', message="login successful!")
+    return render('placeholder.html', message="login unsuccessful!")
 
 @app.route("/logout")
 @login_required
