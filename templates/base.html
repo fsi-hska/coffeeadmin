@@ -1,8 +1,8 @@
 {% extends "bootstrap_responsive.html" %}
 
 
-{% set logged_in = logged_in|default(true) %}
-{% set is_admin = is_admin|default(false) %}
+{% set logged_in = (user.is_authenticated() and user.is_active())|default(false) %}
+{% set is_admin = user.is_admin()|default(false) %}
 
 {% set navigation_bar = [
     ('/', 'home', 'Home', false, false),
@@ -45,7 +45,7 @@
             </form>
             {% else %}
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a> - 20 Bits
+              <a href="/account" class="navbar-link">Username</a> - 20 Bits - <a href="/logout">Logout</a>
             </p>
             test
             </div>
