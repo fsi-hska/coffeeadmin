@@ -57,7 +57,11 @@ def item_image(item_id):
 def transactions():
     return render('placeholder.html')
 
-# Login and logout stuff
+# Register, Login and logout stuff
+@app.route("/register")
+def register():
+    return render('register.html')
+
 @app.route('/login', methods=['POST'])
 def login():
     username = request.form['username']

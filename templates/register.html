@@ -1,12 +1,39 @@
 {% extends "base.html" %}
+{% set active_page = "/register" %}
 
 {% block body_content %}
 {{ super() }}
     <div class="container">
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-        <h1>...</h1>
+        <h3>Registrieren</h3>
         <p>{{ message }}</p>
+
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">Benutzername</label>
+                <div class="controls">
+                    <input type="text" id="username" placeholder="Benutzername">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Password</label>
+                <div class="controls">
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Hochschulkürzel</label>
+                <div class="controls">
+                    <input type="text" id="hs-user" placeholder="abcd0123">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn">Registrieren</button>
+                </div>
+            </div>
+        </form>
       </div>
     </div>
 {% endblock %}
