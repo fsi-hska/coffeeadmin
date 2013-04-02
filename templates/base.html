@@ -41,7 +41,7 @@
             <form class="navbar-form pull-right" action="/login" method="post">
               <input name="username" class="span2" type="text" placeholder="Benutzername">
               <input name="password" class="span2" type="password" placeholder="Passwort">
-              <input name="remember" type="checkbox">Remember me
+              <!--<input name="remember" type="checkbox">Remember me-->
               <button type="submit" class="btn">Einloggen</button>
             </form>
             <ul class="nav pull-right">
@@ -49,7 +49,7 @@
             </ul>
             {% else %}
             <p class="navbar-text pull-right">
-              <a href="/account" class="navbar-link">Username</a> - 20 Bits - <a href="/logout">Logout</a>
+              <a href="/account" class="navbar-link">{{user.user.username}}</a>{% if user.user.wallet %} - {{ user.user.wallet.balance }} Bits{% endif %} - <a href="/logout">Logout</a>
             </p>
             test
             </div>

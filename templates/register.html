@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% set active_page = "/register" %}
 
+{% macro register_field(name, text, default, type) %}
+            <div class="control-group {% if validation %}{% if name in error %}error{% else %}success{% endif %}{% endif %}">
+                <label class="control-label">{{text}}</label>
+                <div class="controls">
+                    <input type="{{type}}" name="{{name}}" placeholder="{{default}}" {% if validation and name in values %}value="{{ values[name] }}"{% endif %}>
+                    {% if validation and name in error %}<span class="help-inline">{{error[name]}}</span>{% endif %}
+                </div>
+            </div>
+{% endmacro %}
+
 {% block body_content %}
 {{ super() }}
     <div class="container">
@@ -9,28 +19,14 @@
         <h3>Registrieren</h3>
         <p>{{ message }}</p>
 
-        <form class="form-horizontal">
-            <div class="control-group">
-                <label class="control-label" for="inputEmail">Benutzername</label>
-                <div class="controls">
-                    <input type="text" id="username" placeholder="Benutzername">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputPassword">Password</label>
-                <div class="controls">
-                    <input type="password" id="password" placeholder="Password">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputPassword">Hochschulkürzel</label>
-                <div class="controls">
-                    <input type="text" id="hs-user" placeholder="abcd0123">
-                </div>
-            </div>
+        <form class="form-horizontal" action="/register" method="post">
+            {{ register_field('username', 'Benutzername', 'Benutzername', 'text') }}
+            {{ register_field('password', 'Passwort', 'Passwort', 'password') }}
+            {{ register_field('email', 'Email', 'foo@bar.org', 'text') }}
+            {{ register_field('hs-user', 'Hochschulkürzel', 'abcd0123', 'text') }}
             <div class="control-group">
                 <div class="controls">
-                    <button type="submit" class="btn">Registrieren</button>
+                    <button type="submit" class="btn {% if validation and error|length > 0 %}btn-danger{% endif %}">Registrieren</button>
                 </div>
             </div>
         </form>

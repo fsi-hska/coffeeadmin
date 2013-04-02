@@ -32,7 +32,7 @@ def render(link, **context):
 
 @login_manager.user_loader
 def load_user(userid):
-    return user.get(p, userid)
+    return user.get(payment, userid)
 
 @app.route('/')
 def index():
@@ -58,9 +58,27 @@ def transactions():
     return render('placeholder.html')
 
 # Register, Login and logout stuff
-@app.route("/register")
+@app.route("/register", methods=['POST', 'GET'])
 def register():
-    return render('register.html')
+    if request.method == 'POST':
+        error = {}
+        values = {'username': request.form['username'], 'password': request.form['password'], 'email': request.form['email'], 'hs-user': request.form['hs-user'] }
+        if not values['username']:
+            error['username'] = "Darf nicht leer sein."
+        if not values['password']:
+            error['password'] = "Darf nicht leer sein."
+        if not values['email']:
+            error['email'] = "Darf nicht leer sein."
+        if not values['hs-user']:
+            error['hs-user'] = "Darf nicht leer sein."
+
+        if len(error) > 0:
+            return render('register.html', validation=True, error=error, values=values)
+        else:
+            payment.addUser(values['username'], values['password'], values['email'], values['hs-user'], None)
+            return render('success.html', title="Erfolgreich registriert...", message="foo!")
+
+    return render('register.html', validation=False)
 
 @app.route('/login', methods=['POST'])
 def login():
