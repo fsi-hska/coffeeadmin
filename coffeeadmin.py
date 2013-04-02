@@ -4,6 +4,7 @@ import sys
 
 # Payment
 sys.path.insert(0, "coffeeserver/")
+from payment import *
 import coffeeserver
 payment = coffeeserver.load_payment()
 
@@ -13,6 +14,9 @@ import user
 from flask import *
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.login import *
+from flask.ext import admin
+from flask.ext.admin.contrib import sqlamodel
+
 app = Flask(__name__)
 app.secret_key = ':D' # Change this ...
 
@@ -26,6 +30,23 @@ login_manager = LoginManager()
 login_manager.setup_app(app)
 login_manager.session_protection = "strong"
 login_manager.anonymous_user = user.AnonymousUser
+
+# Admin
+class CoffeeAdminIndexView(admin.AdminIndexView):
+    def is_accessible(self):
+        return current_user.is_admin()
+
+class CoffeeModelView(sqlamodel.ModelView):
+    def is_accessible(self):
+        return current_user.is_admin()
+
+admin = admin.Admin(app, 'Test', index_view=CoffeeAdminIndexView())
+admin.add_view(CoffeeModelView(Item, payment.session))
+admin.add_view(CoffeeModelView(Transaction, payment.session))
+admin.add_view(CoffeeModelView(ItemTransaction, payment.session))
+admin.add_view(CoffeeModelView(Token, payment.session))
+admin.add_view(CoffeeModelView(User, payment.session))
+admin.add_view(CoffeeModelView(Wallet, payment.session))
 
 def render(link, **context):
     return render_template(link, user=current_user, **context)
@@ -86,9 +107,9 @@ def login():
     password = request.form['password']
 
     web_user = user.validate(payment, username, password)
-    if web_user is not None:
+    if web_user is not None and web_user.is_admin():
         login_user(web_user)
-        render('placeholder.html', message="login successful!")
+        return render('placeholder.html', message="login successful!")
     return render('placeholder.html', message="login unsuccessful!")
 
 @app.route("/logout")

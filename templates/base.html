@@ -49,9 +49,8 @@
             </ul>
             {% else %}
             <p class="navbar-text pull-right">
-              <a href="/account" class="navbar-link">{{user.user.username}}</a>{% if user.user.wallet %} - {{ user.user.wallet.balance }} Bits{% endif %} - <a href="/logout">Logout</a>
+              <a href="/user/{{user.user.id}}" class="navbar-link">{{user.user.username}}</a>{% if user.user.wallet %} - {{ user.user.wallet.balance }} Bits{% endif %} - <a href="/logout">Logout</a>
             </p>
-            test
             </div>
             {% endif %}
           </div><!--/.nav-collapse -->

@@ -28,7 +28,7 @@ class AnonymousUser(User):
 def paymentUserToWebUser(payment_user):
     if payment_user is None:
         return None
-    return User(payment_user.id, True, True, True, payment_user)
+    return User(payment_user.id, True, True, payment_user.admin, payment_user)
 
 def get(payment, id):
     payment_user = payment.getUserById(int(id))
