@@ -24,6 +24,7 @@
             {{ register_field('password', 'Passwort', 'Passwort', 'password') }}
             {{ register_field('email', 'Email', 'foo@bar.org', 'text') }}
             {{ register_field('hs-user', 'Hochschulkürzel', 'abcd0123', 'text') }}
+            {{ register_field('cc-id', 'Campuscard ID', '1234-12345678', 'text') }}
             <div class="control-group">
                 <div class="controls">
                     <button type="submit" class="btn {% if validation and error|length > 0 %}btn-danger{% endif %}">Registrieren</button>
