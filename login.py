@@ -3,6 +3,7 @@ from jinja2 import TemplateNotFound
 from flask.ext.login import *
 from utils import *
 import re
+import webuser
 
 login = Blueprint('login', __name__, template_folder='templates')
 
@@ -39,7 +40,7 @@ def register():
         if len(error) > 0:
             return render('register.html', validation=True, error=error, values=values)
         else:
-            payment.addUser(values['username'], values['password'], values['email'], values['hs-user'], None)
+            current_app.payment.addUser(values['username'], values['password'], values['email'], values['hs-user'], None)
             return render('success.html', title="Erfolgreich registriert...", message="foo!")
 
     return render('register.html', validation=False)
@@ -49,7 +50,7 @@ def loginf():
     username = request.form['username']
     password = request.form['password']
 
-    web_user = webuser.validate(payment, username, password)
+    web_user = webuser.validate(current_app.payment, username, password)
     if web_user is not None and web_user.is_admin():
         login_user(web_user)
         return render('placeholder.html', message="login successful!")

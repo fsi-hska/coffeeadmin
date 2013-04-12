@@ -19,6 +19,7 @@ from flask.ext.admin.contrib import sqlamodel
 from utils import *
 
 app = Flask(__name__)
+app.payment = payment
 app.secret_key = ':D' # Change this ...
 
 # Bootstrap
@@ -68,7 +69,7 @@ def unauthorized():
 
 @login_manager.user_loader
 def load_user(userid):
-    return user.get(payment, userid)
+    return webuser.get(payment, userid)
 
 # Catch-All
 @app.route('/', defaults={'path': ''})
