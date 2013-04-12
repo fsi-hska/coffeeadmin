@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% set active_page = "/users" %}
+
+{% block body_content %}
+{{ super() }}
+    <div class="container">
+      <div class="hero-unit">
+        <h3>User</h3>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <td>{{selected_user.id}}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{selected_user.username}}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{selected_user.email}}</td>
+            </tr>
+            <tr>
+                <th>HS-Kürzel</th>
+                <td>{{selected_user.hochschulId}}</td>
+            </tr>
+            <tr>
+                <th>Wallet</th>
+                <td>{% if selected_user.wallet != None %}<a href="/wallets/view/{{selected_user.wallet.id}}">{{selected_user.wallet.id}}</a>{% else %}None{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Admin-Flag</th>
+                <td>{{selected_user.admin}}</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+{% endblock %}

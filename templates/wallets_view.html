@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set active_page = "/wallet" %}
+{% set active_page = "/wallets" %}
 
 {% block body_content %}
 {{ super() }}
@@ -16,7 +16,7 @@
                 <td>{{wallet.mifareid}}</td>
             </tr>
             <tr>
-                <th>Card Id</th>
+                <th>Card-Id</th>
                 <td>{{wallet.cardid}}</td>
             </tr>
             <tr>
@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <th>User</th>
-                <td>{% if wallet != None %}<a href="/users/view/{{wallet.user.id}}">{{wallet.user.username}}</a>{% else %}None{% endif %}</td>
+                <td>{% if wallet.user != None %}<a href="/users/view/{{wallet.user.id}}">{{wallet.user.username}}</a>{% else %}None{% endif %}</td>
             </tr>
         </table>
       </div>

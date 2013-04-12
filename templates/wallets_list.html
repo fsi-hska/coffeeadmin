@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% set active_page = "/wallets" %}
+
+{% block body_content %}
+{{ super() }}
+    <div class="container">
+      <div class="hero-unit">
+        <h3>Wallets</h3>
+
+        <div class="row-fluid">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Mifare Id</th>
+                        <th>Card Id</th>
+                        <th>Balance</th>
+                        <th>User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for wallet in wallets %}
+                        <tr>
+                            <td><a href="/wallets/view/{{wallet.id}}">{{wallet.id}}</a></td>
+                            <td>{{wallet.mifareid}}</td>
+                            <td>{{wallet.cardid}}</td>
+                            <td>{{wallet.balance}}</td>
+                            <td>{% if wallet.user != None %}<a href="/users/view/{{wallet.user.id}}">{{wallet.user.username}}</a>{% else %}None{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+{% endblock %}

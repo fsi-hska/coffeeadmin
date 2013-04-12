@@ -31,11 +31,20 @@
           <a class="brand" href="/">Coffeeweb!</a>
           <div class="nav-collapse">
             <ul class="nav">
+                {{ nav_link('/', 'Home') }}
+                {% if logged_in and is_admin %}
+                {{ nav_link('/items', 'Items') }}
+                {{ nav_link('/transactions', 'Transactions') }}
+                {{ nav_link('/wallets', 'Wallets') }}
+                {{ nav_link('/users', 'User') }}
+                {% endif %}
+            {#
               {% for link, id, caption, needs_user, needs_admin in navigation_bar %}
                 {% if (not needs_user and not needs_admin) or ((needs_user and logged_in) and not needs_admin) or (needs_admin and is_admin) %}
                   {{ nav_link(link, caption) }}
                 {% endif %}
               {% endfor %}
+             #}
             </ul>
             {% if not logged_in %}
             <form class="navbar-form pull-right" action="/login" method="post">
