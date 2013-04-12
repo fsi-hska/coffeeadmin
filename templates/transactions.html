@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% set active_page = "/transactions" %}
 
 {% block body_content %}
 {{ super() }}
@@ -21,7 +22,7 @@
                     {% for transaction in transactions %}
                         <tr>
                             <td>{{transaction.id}}</td>
-                            <td>{{transaction.walletid}}</td>
+                            <td><a href="/wallets/view/{{transaction.walletid}}">{{transaction.walletid}}</a></td>
                             <td>{{transaction.time}}</td>
                             <td>{{transaction.change}}</td>
                             <td>{{transaction.description}}</td>

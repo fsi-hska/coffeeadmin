@@ -40,6 +40,8 @@ import login
 app.register_blueprint(login.login)
 import items
 app.register_blueprint(items.items)
+import wallets
+app.register_blueprint(wallets.wallets)
 
 # Admin
 class CoffeeAdminIndexView(admin.AdminIndexView):

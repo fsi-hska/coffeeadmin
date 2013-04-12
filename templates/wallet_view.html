@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% set active_page = "/wallet" %}
+
+{% block body_content %}
+{{ super() }}
+    <div class="container">
+      <div class="hero-unit">
+        <h3>Wallet</h3>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <td>{{wallet.id}}</td>
+            </tr>
+            <tr>
+                <th>Mifare-Id</th>
+                <td>{{wallet.mifareid}}</td>
+            </tr>
+            <tr>
+                <th>Card Id</th>
+                <td>{{wallet.cardid}}</td>
+            </tr>
+            <tr>
+                <th>Balance</th>
+                <td>{{wallet.balance}}</td>
+            </tr>
+            <tr>
+                <th>User</th>
+                <td>{% if wallet != None %}<a href="/users/view/{{wallet.user.id}}">{{wallet.user.username}}</a>{% else %}None{% endif %}</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+{% endblock %}
