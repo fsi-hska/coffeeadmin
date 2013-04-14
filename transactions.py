@@ -3,7 +3,7 @@ from jinja2 import TemplateNotFound
 from utils import *
 from payment import *
 
-transactions = Blueprint('transactions', __name__, template_folder='templates')
+transactions = Blueprint('transactions', __name__, template_folder='blueprints/transactions')
 
 @transactions.route('/transactions')
 @transactions.route('/transactions/')

@@ -4,7 +4,7 @@ from flask.ext.login import *
 from utils import *
 from payment import *
 
-items = Blueprint('items', __name__, template_folder='templates')
+items = Blueprint('items', __name__, template_folder='blueprints/items')
 
 
 @items.route('/items')

@@ -3,7 +3,7 @@ from jinja2 import TemplateNotFound
 from utils import *
 from payment import *
 
-users = Blueprint('users', __name__, template_folder='templates')
+users = Blueprint('users', __name__, template_folder='blueprints/users')
 
 @users.route('/users')
 @users.route('/users/list')

@@ -3,7 +3,7 @@ from jinja2 import TemplateNotFound
 from utils import *
 from payment import *
 
-wallets = Blueprint('wallets', __name__, template_folder='templates')
+wallets = Blueprint('wallets', __name__, template_folder='blueprints/wallets')
 
 @wallets.route('/wallets')
 @wallets.route('/wallets/list')
@@ -26,7 +26,8 @@ def wallets_edit(id):
     balance = request.form['balance']
     reason = request.form['reason']
 
-    return wallets_view(id)
+    print url_for('wallets_view', id=id)
+    return
 
     try:
         balance = int(balance)
