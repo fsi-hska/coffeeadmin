@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% set active_page = "/items" %}
+
+{% block body_content %}
+{{ super() }}
+    <div class="container">
+      <div class="hero-unit">
+        <h3>Item</h3>
+        <table class="table">
+            <tr>
+                <th>Image</th>
+                <td><div style="display: inline-block; width: 50px; height: 50px; text-align: center;">
+                    <img style="max-height: 100%;" src="/items/image/{{item.id}}"/>
+                </div></td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{item.id}}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{item.desc}}</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>{{item.weight}}</td>
+            </tr>
+            <tr>
+                <th>Enabled-Flag</th>
+                <td>{{item.enabled}}</td>
+            </tr>
+            <tr>
+                <th>Sold Out-Flag</th>
+                <td>{{item.sold_out}}</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+{% endblock %}

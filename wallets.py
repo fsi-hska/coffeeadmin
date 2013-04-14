@@ -19,3 +19,21 @@ def wallets_view(id):
     if w is None:
         return render('error.html', error_title='Wallet nicht gefunden')
     return render('wallets_view.html', wallet=w)
+
+@wallets.route('/wallets/edit/<int:id>/', methods=['POST'])
+@login_required
+def wallets_edit(id):
+    balance = request.form['balance']
+    reason = request.form['reason']
+
+    return wallets_view(id)
+
+    try:
+        balance = int(balance)
+    except:
+        return render('error.html', error_title='Balance is not int.')
+
+    w = current_app.payment.getWalletById(id)
+    if w is None:
+        return render('error.html', error_title='Wallet nicht gefunden')
+    return render('wallets_view.html', wallet=w)

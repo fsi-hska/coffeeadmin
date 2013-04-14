@@ -4,6 +4,7 @@
 {% block body_content %}
 {{ super() }}
     <div class="container">
+    {% include 'info_message.html' %}
       <div class="hero-unit">
         <h3>Wallet</h3>
         <table class="table">
@@ -21,7 +22,7 @@
             </tr>
             <tr>
                 <th>Balance</th>
-                <td>{{wallet.balance}}</td>
+                <td>{{wallet.balance}} <a href="#myModal" role="button" class="btn btn-small" data-toggle="modal"><i class="icon-pencil"></i> Edit</a></td>
             </tr>
             <tr>
                 <th>User</th>
@@ -29,5 +30,33 @@
             </tr>
         </table>
       </div>
+    </div>
+
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <form class="form-horizontal" action="/wallets/edit/{{wallet.id}}/" method="post">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Wallet Balance editieren</h3>
+            </div>
+
+            <div class="modal-body">
+                <div class="control-group">
+                <label class="control-label">Balance</label>
+                    <div class="controls">
+                        <input type="text" name="balance" value="{{wallet.balance}}">
+                    </div>
+                </div>
+                <div class="control-group">
+                <label class="control-label">Grund</label>
+                    <div class="controls">
+                        <input type="text" name="reason" placeholder="Grund der Änderung">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Schließen</button>
+                <button type="submit" class="btn btn-primary">Speichern</button>
+            </div>
+        </form>
     </div>
 {% endblock %}

@@ -1,0 +1,8 @@
+{% set info_message = info_message|default('') %}
+{% if info_message != '' %}
+<div class="alert alert-{{ info_type }}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4>{{ info_title }}!</h4>
+    {{ info_message }}
+</div>
+{% endif %}

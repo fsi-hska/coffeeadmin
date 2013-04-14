@@ -10,6 +10,8 @@ payment = coffeeserver.load_payment()
 
 import webuser
 
+import datetime
+
 # Flask
 from flask import *
 from flask.ext.bootstrap import Bootstrap
@@ -22,8 +24,13 @@ app = Flask(__name__)
 app.payment = payment
 app.secret_key = ':D' # Change this ...
 
+# stuff
+def unix2datetime(unixtime):
+    return datetime.fromtimestamp(int(unixtime))
+app.jinja_env.globals.update(unix2datetime=unix2datetime)
+
 # Bootstrap
-Bootstrap(app)
+Bootstrap(app)  
 app.config['BOOTSTRAP_USE_CDN'] = False
 app.config['BOOTSTRAP_FONTAWESOME'] = True
 
@@ -36,6 +43,8 @@ login_manager.anonymous_user = webuser.AnonymousUser
 # Blueprints
 import transactions
 app.register_blueprint(transactions.transactions)
+import itemtransactions
+app.register_blueprint(itemtransactions.itemtransactions)
 import login
 app.register_blueprint(login.login)
 import items

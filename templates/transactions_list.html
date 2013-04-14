@@ -13,9 +13,9 @@
                     <tr>
                         <th>Id</th>
                         <th>Wallet</th>
-                        <th>Time</th>
                         <th>Change</th>
                         <th>Description</th>
+                        <th>Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,9 +23,9 @@
                         <tr>
                             <td>{{transaction.id}}</td>
                             <td><a href="/wallets/view/{{transaction.walletid}}">{{transaction.walletid}}</a></td>
-                            <td>{{transaction.time}}</td>
                             <td>{{transaction.change}}</td>
                             <td>{{transaction.description}}</td>
+                            <td>{{ unix2datetime(transaction.time).strftime('%H:%M:%S %d.%m.%Y') }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

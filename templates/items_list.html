@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% set active_page = "/items" %}
+
+{% block body_content %}
+{{ super() }}
+    <div class="container">
+      <div class="hero-unit">
+        <h3>Items</h3>
+
+        <div class="row-fluid">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Img</th>
+                        <th>Id</th>
+                        <th>Description</th>
+                        <th>Weight</th>
+                        <th>Enabled-Flag</th>
+                        <th>Sold Out-Flag</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td><div style="display: inline-block; width: 30px; height: 30px; text-align: center;">
+                                <img style="max-height: 100%;" src="/items/image/{{item.id}}"/>
+                            </div></td>
+                            <td><a href="/items/view/{{item.id}}">{{item.id}}</a></td>
+                            <td>{{item.desc}}</td>
+                            <td>{{item.weight}}</td>
+                            <td>{{item.enabled}}</td>
+                            <td>{{item.sold_out}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+{% endblock %}
