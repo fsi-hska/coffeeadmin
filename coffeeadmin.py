@@ -53,6 +53,8 @@ import wallets
 app.register_blueprint(wallets.wallets)
 import users
 app.register_blueprint(users.users)
+import tokens
+app.register_blueprint(tokens.tokens)
 
 # Admin
 class CoffeeAdminIndexView(admin.AdminIndexView):

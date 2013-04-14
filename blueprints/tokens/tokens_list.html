@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% set active_page = "/tokens" %}
+
+{% block body_content %}
+{{ super() }}
+    <div class="container">
+      <div class="hero-unit">
+        <h3>Tokens</h3>
+
+        <div class="row-fluid">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Token</th>
+                        <th>Creation time</th>
+                        <th>Created by</th>
+                        <th>Pagehash</th>
+                        <th>Valid</th>
+                        <th>Used by</th>
+                        <th>Used time</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for token in tokens %}
+                        <tr>
+                            <td>{{token.id}}</td>
+                            <td>{{token.token}}</td>
+                            <td>{{token.creation_time}}</td>
+                            <td>{{token.created_by}}</td>
+                            <td>{{token.pagehash}}</td>
+                            <td>{{token.valid}}</td>
+                            <td>{% if token.used_by != None %}<a href="/wallets/view/{{token.used_by}}">{{token.used_by}}</a>{% else %}None{% endif %}</td>
+                            <td>{% if token.used_time != None %}{{unix2datetime(token.used_time).strftime('%H:%M:%S %d.%m.%Y')}}{% else %}-{% endif %}</td>
+                            <td>{{token.value}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+{% endblock %}
