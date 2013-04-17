@@ -13,6 +13,7 @@ def wallets_list():
     return render('wallets_list.html', wallets=w)
 
 @wallets.route('/wallets/view/<int:id>')
+@wallets.route('/wallets/view/<int:id>/')
 @login_required
 def wallets_view(id):
     w = current_app.payment.getWalletById(id)
@@ -20,21 +21,30 @@ def wallets_view(id):
         return render('error.html', error_title='Wallet nicht gefunden')
     return render('wallets_view.html', wallet=w)
 
+@wallets.route('/wallets/edit/<int:id>', methods=['POST'])
 @wallets.route('/wallets/edit/<int:id>/', methods=['POST'])
 @login_required
 def wallets_edit(id):
+    reason = str(request.form['reason'])
     balance = request.form['balance']
-    reason = request.form['reason']
 
-    print url_for('wallets_view', id=id)
-    return
+    if len(reason) == 0:
+        session['info'] = ['Yay!', 'Wallet-Balance nicht geaendert: Kein Grund angegeben!', 'error']
+        return redirect('/wallets/view/' + str(id))
 
-    try:
+    try:    
         balance = int(balance)
     except:
-        return render('error.html', error_title='Balance is not int.')
+        session['info'] = ['Yay!', 'Wallet-Balance nicht geaendert: Balance not int!', 'error']
+        return redirect('/wallets/view/' + str(id))
 
     w = current_app.payment.getWalletById(id)
     if w is None:
         return render('error.html', error_title='Wallet nicht gefunden')
-    return render('wallets_view.html', wallet=w)
+
+    w.transactions.append(Transaction(int(time.time()), balance, current_user.user.username + ' changed balance from ' + str(w.balance) + ' to ' + str(balance) + ': ' + str(reason)))
+    w.balance = balance
+
+    current_app.payment.session.commit()
+    session['info'] = ['Yay!', 'Wallet-Balance geaendert!', 'success']
+    return redirect('/wallets/view/' + str(id))
