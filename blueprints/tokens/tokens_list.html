@@ -4,6 +4,7 @@
 {% block body_content %}
 {{ super() }}
     <div class="container">
+      {% include 'info_message.html' %}
       <div class="hero-unit">
         <h3>Tokens</h3>
 
@@ -28,8 +29,8 @@
                             <td>{{token.id}}</td>
                             <td>{{token.token}}</td>
                             <td>{{token.creation_time}}</td>
-                            <td>{{token.created_by}}</td>
-                            <td>{{token.pagehash}}</td>
+                            <td><a href="/users/view/{{token.created_by}}">{{token.created_by}}</a></td>
+                            <td><a href="/tokens/pages/view/{{token.pageHash}}">{{token.pageHash}}</a></td>
                             <td>{{token.valid}}</td>
                             <td>{% if token.used_by != None %}<a href="/wallets/view/{{token.used_by}}">{{token.used_by}}</a>{% else %}None{% endif %}</td>
                             <td>{% if token.used_time != None %}{{unix2datetime(token.used_time).strftime('%H:%M:%S %d.%m.%Y')}}{% else %}-{% endif %}</td>

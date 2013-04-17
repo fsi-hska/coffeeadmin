@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% set active_page = "/tokens" %}
+
+{% block body_content %}
+{{ super() }}
+    <div class="container">
+      {% include 'info_message.html' %}
+      <div class="hero-unit">
+        <h3>Token-Seite erstellen</h3>
+
+        <form class="form-horizontal" action="/tokens/pages/add" method="post">
+            <div class="control-group {% if validation and value_error %}error{% endif %}">
+                <label class="control-label">Wert</label>
+                <div class="controls">
+                    <input type="text" name="value" placeholder="50">
+                    {% if validation and value_error %}<span class="help-inline">{{ value_error }}</span>{% endif %}
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn">Erstellen</button>
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+{% endblock %}
