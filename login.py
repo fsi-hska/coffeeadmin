@@ -1,9 +1,11 @@
 from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
 from flask.ext.login import *
+from flask.ext.login import login_required
 from utils import *
 import re
 import webuser
+#from flask.ext.security import login_required
 
 login = Blueprint('login', __name__, template_folder='templates')
 

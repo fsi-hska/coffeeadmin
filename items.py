@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
 from flask.ext.login import *
+from flask.ext.login import login_required
 from utils import *
 from payment import *
 

@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
 from utils import *
 from payment import *
+from flask.ext.login import login_required
 
 itemtransactions = Blueprint('itemtransactions', __name__, template_folder='blueprints/itemtransactions')
 
